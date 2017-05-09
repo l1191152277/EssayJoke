@@ -16,7 +16,7 @@ import java.lang.reflect.Method;
  * Description:View的findviewbyid的辅助类
  */
 
-public class VIewUtils {
+public class ViewUtils {
 
     public static void inject(Activity activity) {
         inject(new ViewFinder(activity), activity);
