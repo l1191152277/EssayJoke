@@ -7,13 +7,12 @@ import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-
 import com.mrl.baselibrary.ioc.ViewUtils;
 
 /**
  * Email:1191152277@qq.com
  * Created by Mr.L on 2017/5/7
- * Description:
+ * Description: 基础Activity
  */
 
 public abstract class BaseActivity extends AppCompatActivity {

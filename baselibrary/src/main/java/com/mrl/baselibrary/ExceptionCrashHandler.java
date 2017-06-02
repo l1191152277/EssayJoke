@@ -53,6 +53,7 @@ public class ExceptionCrashHandler implements Thread.UncaughtExceptionHandler{
         // 1.1 崩溃信息
         // 1.2 手机信息
         // 1.3 版本信息
+
         // 2.写入文件
         String crashFileName = saveInfoToSD(ex);
         Log.e(TAG, "fileName --> " + crashFileName);
