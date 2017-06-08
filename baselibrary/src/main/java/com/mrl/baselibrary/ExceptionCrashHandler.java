@@ -23,32 +23,32 @@ import java.util.Map;
  * Created by Mr.L  on 2017/5/9
  * Description: 单例模式  崩溃信息捕捉处理
  */
-public class ExceptionCrashHandler implements Thread.UncaughtExceptionHandler{
+public class ExceptionCrashHandler implements Thread.UncaughtExceptionHandler {
     public static ExceptionCrashHandler mInstance;
-    private String TAG="ExceptionCrashHandler";
+    private String TAG = "ExceptionCrashHandler";
     private Context mContext;
     private Thread.UncaughtExceptionHandler mDefaultUncaughtExceptionHandler;
 
-    public static ExceptionCrashHandler getInstance(){
-        if (mInstance==null){
+    public static ExceptionCrashHandler getInstance() {
+        if (mInstance == null) {
             //用来解决多并发的问题
-            synchronized (ExceptionCrashHandler.class){
-                mInstance=new ExceptionCrashHandler();
+            synchronized (ExceptionCrashHandler.class) {
+                mInstance = new ExceptionCrashHandler();
             }
         }
-                  return mInstance;
+        return mInstance;
     }
 
-    public void init(Context context){
-        this.mContext=context;
+    public void init(Context context) {
+        this.mContext = context;
         Thread.currentThread().setUncaughtExceptionHandler(this);
-        mDefaultUncaughtExceptionHandler= Thread.currentThread().getDefaultUncaughtExceptionHandler();
+        mDefaultUncaughtExceptionHandler = Thread.currentThread().getDefaultUncaughtExceptionHandler();
     }
 
 
     @Override
     public void uncaughtException(Thread thread, Throwable ex) {
-        Log.e(TAG,"报错了");
+        Log.e(TAG, "报错了");
         // 1. 获取信息
         // 1.1 崩溃信息
         // 1.2 手机信息
@@ -60,7 +60,7 @@ public class ExceptionCrashHandler implements Thread.UncaughtExceptionHandler{
         // 3. 缓存崩溃日志文件
         cacheCrashFile(crashFileName);
         //系统默认处理
-        mDefaultUncaughtExceptionHandler.uncaughtException(thread,ex);
+        mDefaultUncaughtExceptionHandler.uncaughtException(thread, ex);
     }
 
     /**

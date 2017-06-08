@@ -18,14 +18,16 @@ import android.widget.Toast;
 class DialogController {
     private BaseDialog mBaseDialog;
     private Window mWindow;
+    private DialogViewHelper mViewHelper;
 
     public DialogController(BaseDialog baseDialog, Window window) {
-        this.mBaseDialog=baseDialog;
-        this.mWindow=window;
+        this.mBaseDialog = baseDialog;
+        this.mWindow = window;
     }
 
     /**
      * 获取dialog
+     *
      * @return
      */
     public BaseDialog getDialog() {
@@ -34,17 +36,55 @@ class DialogController {
 
     /**
      * 获取dialog的window
+     *
      * @return
      */
     public Window getWindow() {
         return mWindow;
     }
 
-    public static  class DialogParams{
+    /**
+     * 设置ViewHelper
+     *
+     * @param viewHelper
+     */
+    public void setViewHelper(DialogViewHelper viewHelper) {
+        this.mViewHelper = viewHelper;
+    }
+
+    /**
+     * 设置文字
+     */
+    public void setText(int viewId, CharSequence text) {
+        mViewHelper.setText(viewId, text);
+    }
+
+    /**
+     * 获取View
+     *
+     * @param viewId
+     * @param <T>
+     * @return
+     */
+    public <T extends View> T getView(int viewId) {
+        return mViewHelper.getView(viewId);
+    }
+
+    /**
+     * 设置点击事件监听
+     *
+     * @param viewId
+     * @param onClickListener
+     */
+    public void setOnClickListener(int viewId, View.OnClickListener onClickListener) {
+        mViewHelper.setOnClickListener(viewId, onClickListener);
+    }
+
+    public static class DialogParams {
         public Context mContext;
         public int mThemeResId;
         //点击空白是否能够取消
-        public boolean mCancelable=true;
+        public boolean mCancelable = true;
         // dialog Cancel监听
         public DialogInterface.OnCancelListener mOnCancelListener;
         // dialog消失监听
@@ -56,76 +96,81 @@ class DialogController {
         // dialog布局Layout Id
         public int mViewLayoutResId;
         // 存放文字的修改
-        public SparseArray<CharSequence> mTextArray=new SparseArray<>();
+        public SparseArray<CharSequence> mTextArray = new SparseArray<>();
         // 存放点击事件的监听
-        public SparseArray<View.OnClickListener> mOnClickListenerArray=new SparseArray<>();
+        public SparseArray<View.OnClickListener> mOnClickListenerArray = new SparseArray<>();
         //宽度  默认自适应
-        public int mWidth= ViewGroup.LayoutParams.WRAP_CONTENT;
+        public int mWidth = ViewGroup.LayoutParams.WRAP_CONTENT;
         //高度  默认自适应
-        public int mHeight= ViewGroup.LayoutParams.WRAP_CONTENT;
+        public int mHeight = ViewGroup.LayoutParams.WRAP_CONTENT;
         //弹出方向
-        public int mGravity= Gravity.CENTER;
+        public int mGravity = Gravity.CENTER;
         //动画
         public int mAnimations = 0;
 
 
         public DialogParams(Context context, int themeResId) {
-            this.mContext=context;
-            this.mThemeResId=themeResId;
+            this.mContext = context;
+            this.mThemeResId = themeResId;
         }
 
         /**
          * 绑定和设置参数
+         *
          * @param mAlert
          */
         public void apply(DialogController mAlert) {
             DialogViewHelper viewHelper = null;
 
             //设置dialog布局
-            if(mViewLayoutResId!=0){
-                viewHelper=new DialogViewHelper(mContext,mViewLayoutResId);
+            if (mViewLayoutResId != 0) {
+                viewHelper = new DialogViewHelper(mContext, mViewLayoutResId);
             }
-            if(mView!=null){
-                viewHelper=new DialogViewHelper();
+            if (mView != null) {
+                viewHelper = new DialogViewHelper();
                 viewHelper.setContentView(mView);
             }
 
-            if (viewHelper==null){
-                Toast.makeText(mContext,"布局为空",Toast.LENGTH_LONG).show();
-               return;
+            if (viewHelper == null) {
+                Toast.makeText(mContext, "布局为空", Toast.LENGTH_LONG).show();
+                return;
             }
 
             mAlert.getDialog().setContentView(viewHelper.getContentView());
 
+            //设置Controller辅助类
+            mAlert.setViewHelper(viewHelper);
+
+
             //设置文字
-            for (int i=0;i<mTextArray.size();i++){
-                viewHelper.setText(mTextArray.keyAt(i),mTextArray.valueAt(i));
+            for (int i = 0; i < mTextArray.size(); i++) {
+                mAlert.setText(mTextArray.keyAt(i), mTextArray.valueAt(i));
             }
 
             //设置点击事件
-            for (int i=0;i<mOnClickListenerArray.size();i++){
-                viewHelper.setOnClickListener(mOnClickListenerArray.keyAt(i),mOnClickListenerArray.valueAt(i));
+            for (int i = 0; i < mOnClickListenerArray.size(); i++) {
+                mAlert.setOnClickListener(mOnClickListenerArray.keyAt(i), mOnClickListenerArray.valueAt(i));
             }
             //自定义效果  全屏  弹出方式  默认动画
-            Window window=mAlert.getWindow();
+            Window window = mAlert.getWindow();
+
 
             //设置弹出方向
             window.setGravity(mGravity);
 
             //设置动画
-            if (mAnimations!=0){
+            if (mAnimations != 0) {
                 window.setWindowAnimations(mAnimations);
             }
 
             //设置宽高
-            WindowManager.LayoutParams params=window.getAttributes();
-            params.width=mWidth;
-            params.height=mHeight;
+            WindowManager.LayoutParams params = window.getAttributes();
+            params.width = mWidth;
+            params.height = mHeight;
             window.setAttributes(params);
 
         }
     }
-
 
 
 }

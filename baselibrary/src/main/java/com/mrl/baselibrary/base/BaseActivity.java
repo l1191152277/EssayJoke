@@ -1,4 +1,5 @@
 package com.mrl.baselibrary.base;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +8,7 @@ import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+
 import com.mrl.baselibrary.ioc.ViewUtils;
 
 /**
@@ -18,6 +20,7 @@ import com.mrl.baselibrary.ioc.ViewUtils;
 public abstract class BaseActivity extends AppCompatActivity {
     protected Context mContext;
     public String TAG;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,24 +37,28 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     // 设置界面视图
     protected abstract void setContentView();
+
     // 初始化头部
     protected abstract void initTitle();
+
     // 初始化界面
     protected abstract void initView();
+
     // 初始化数据
     protected abstract void initData();
 
     /**
      * 启动一个Activity
-     * @param activity  需要启动的Activity的Class
+     *
+     * @param activity 需要启动的Activity的Class
      */
     public void startActivity(Class<? extends Activity> activity) {
-        Intent intent = new Intent(this,activity);
+        Intent intent = new Intent(this, activity);
         startActivity(intent);
     }
 
     /**
-     *  findViewById 不需要再去强转
+     * findViewById 不需要再去强转
      */
     public <T extends View> T viewById(@IdRes int resId) {
         return (T) super.findViewById(resId);

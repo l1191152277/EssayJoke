@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.StyleRes;
-import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,14 +15,44 @@ import com.mrl.baselibrary.R;
  * Created by Mr.L  on 2017/6/2
  * Description:  自定义万能Dialog
  */
-public class BaseDialog extends Dialog{
+public class BaseDialog extends Dialog {
     private DialogController mAlert;
 
     public BaseDialog(Context context, int themeResId) {
         super(context, themeResId);
-        mAlert=new DialogController(this,getWindow());
+        mAlert = new DialogController(this, getWindow());
     }
-    public static class Builder{
+
+
+    /**
+     * 设置文字
+     */
+    public void setText(int viewId, CharSequence text) {
+        mAlert.setText(viewId, text);
+    }
+
+    /**
+     * 获取View
+     *
+     * @param viewId
+     * @param <T>
+     * @return
+     */
+    public <T extends View> T getView(int viewId) {
+        return mAlert.getView(viewId);
+    }
+
+    /**
+     * 设置点击事件监听
+     *
+     * @param viewId
+     * @param onClickListener
+     */
+    public void setOnClickListener(int viewId, View.OnClickListener onClickListener) {
+        mAlert.setOnClickListener(viewId, onClickListener);
+    }
+
+    public static class Builder {
         private final DialogController.DialogParams P;
 
         /**
@@ -35,7 +64,7 @@ public class BaseDialog extends Dialog{
 
 
         /**
-         * @param context the parent context
+         * @param context    the parent context
          * @param themeResId the resource ID of the theme
          */
         public Builder(@NonNull Context context, @StyleRes int themeResId) {
@@ -63,45 +92,49 @@ public class BaseDialog extends Dialog{
 
         /**
          * 设置文本
+         *
          * @param viewId
          * @param text
          * @return
          */
-        public Builder setText(int viewId ,CharSequence text ){
-            P.mTextArray.put(viewId,text);
+        public Builder setText(int viewId, CharSequence text) {
+            P.mTextArray.put(viewId, text);
             return this;
         }
 
         /**
          * 设置点击事件
+         *
          * @param viewId
          * @param onClickListener
          * @return
          */
-        public Builder setOnClickListener(int viewId ,View.OnClickListener onClickListener){
-            P.mOnClickListenerArray.put(viewId,onClickListener);
+        public Builder setOnClickListener(int viewId, View.OnClickListener onClickListener) {
+            P.mOnClickListenerArray.put(viewId, onClickListener);
             return this;
         }
 
         /**
          * 设置全屏
+         *
          * @return
          */
-        public Builder fullWidth(){
-            P.mWidth= ViewGroup.LayoutParams.MATCH_PARENT;
+        public Builder fullWidth() {
+            P.mWidth = ViewGroup.LayoutParams.MATCH_PARENT;
             return this;
         }
 
         /**
          * 设置弹出方向和动画
+         *
          * @param isAnimation
          * @return
          */
-        public Builder fromBottom(boolean isAnimation){
-           if (isAnimation){
-              P.mAnimations = R.style.DialogFromBottomAnim;
-           }
-            P.mGravity=Gravity.BOTTOM;
+        public Builder fromBottom(boolean isAnimation) {
+            if (isAnimation) {
+                P.mAnimations = R.style.DialogFromBottomAnim;
+            }
+            P.mGravity = Gravity.BOTTOM;
             return this;
         }
 
@@ -110,35 +143,38 @@ public class BaseDialog extends Dialog{
          *
          * @return
          */
-        public Builder widthAndHeight(int width,int height ){
-            P.mWidth=width;
-            P.mHeight=height;
+        public Builder widthAndHeight(int width, int height) {
+            P.mWidth = width;
+            P.mHeight = height;
             return this;
         }
 
 
         /**
          * 添加默认动画
+         *
          * @return
          */
-        public Builder addDufaultAnimation(){
-            P.mAnimations=R.style.DialogFromBottomAnim;
+        public Builder addDufaultAnimation() {
+            P.mAnimations = R.style.DialogFromBottomAnim;
 
             return this;
         }
 
         /**
          * 添加动画
+         *
          * @param styleAnimation
          * @return
          */
-        public Builder setAnimation(int styleAnimation){
-            P.mAnimations=styleAnimation;
+        public Builder setAnimation(int styleAnimation) {
+            P.mAnimations = styleAnimation;
             return this;
         }
 
         /**
          * Sets the callback that will be called if the dialog is canceled.
+         *
          * @return This Builder object to allow for chaining of calls to set methods
          */
         public BaseDialog.Builder setOnCancelListener(OnCancelListener onCancelListener) {
@@ -187,9 +223,9 @@ public class BaseDialog extends Dialog{
         }
 
         /**
-         *     显示Dialog
-         *     AlertDialog dialog = builder.create();
-         *     dialog.show();
+         * 显示Dialog
+         * AlertDialog dialog = builder.create();
+         * dialog.show();
          */
         public BaseDialog show() {
             final BaseDialog dialog = create();
