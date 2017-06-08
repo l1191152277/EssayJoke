@@ -117,9 +117,9 @@ class DialogController {
         /**
          * 绑定和设置参数
          *
-         * @param mAlert
+         * @param mController
          */
-        public void apply(DialogController mAlert) {
+        public void apply(DialogController mController) {
             DialogViewHelper viewHelper = null;
 
             //设置dialog布局
@@ -136,23 +136,23 @@ class DialogController {
                 return;
             }
 
-            mAlert.getDialog().setContentView(viewHelper.getContentView());
+            mController.getDialog().setContentView(viewHelper.getContentView());
 
             //设置Controller辅助类
-            mAlert.setViewHelper(viewHelper);
+            mController.setViewHelper(viewHelper);
 
 
             //设置文字
             for (int i = 0; i < mTextArray.size(); i++) {
-                mAlert.setText(mTextArray.keyAt(i), mTextArray.valueAt(i));
+                mController.setText(mTextArray.keyAt(i), mTextArray.valueAt(i));
             }
 
             //设置点击事件
             for (int i = 0; i < mOnClickListenerArray.size(); i++) {
-                mAlert.setOnClickListener(mOnClickListenerArray.keyAt(i), mOnClickListenerArray.valueAt(i));
+                mController.setOnClickListener(mOnClickListenerArray.keyAt(i), mOnClickListenerArray.valueAt(i));
             }
             //自定义效果  全屏  弹出方式  默认动画
-            Window window = mAlert.getWindow();
+            Window window = mController.getWindow();
 
 
             //设置弹出方向

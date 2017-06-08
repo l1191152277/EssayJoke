@@ -16,11 +16,11 @@ import com.mrl.baselibrary.R;
  * Description:  自定义万能Dialog
  */
 public class BaseDialog extends Dialog {
-    private DialogController mAlert;
+    private DialogController mController;
 
     public BaseDialog(Context context, int themeResId) {
         super(context, themeResId);
-        mAlert = new DialogController(this, getWindow());
+        mController = new DialogController(this, getWindow());
     }
 
 
@@ -28,7 +28,7 @@ public class BaseDialog extends Dialog {
      * 设置文字
      */
     public void setText(int viewId, CharSequence text) {
-        mAlert.setText(viewId, text);
+        mController.setText(viewId, text);
     }
 
     /**
@@ -39,7 +39,7 @@ public class BaseDialog extends Dialog {
      * @return
      */
     public <T extends View> T getView(int viewId) {
-        return mAlert.getView(viewId);
+        return mController.getView(viewId);
     }
 
     /**
@@ -49,7 +49,7 @@ public class BaseDialog extends Dialog {
      * @param onClickListener
      */
     public void setOnClickListener(int viewId, View.OnClickListener onClickListener) {
-        mAlert.setOnClickListener(viewId, onClickListener);
+        mController.setOnClickListener(viewId, onClickListener);
     }
 
     public static class Builder {
@@ -209,7 +209,7 @@ public class BaseDialog extends Dialog {
             // We can't use Dialog's 3-arg constructor with the createThemeContextWrapper param,
             // so we always have to re-set the theme
             final BaseDialog dialog = new BaseDialog(P.mContext, P.mThemeResId);
-            P.apply(dialog.mAlert);
+            P.apply(dialog.mController);
             dialog.setCancelable(P.mCancelable);
             if (P.mCancelable) {
                 dialog.setCanceledOnTouchOutside(true);

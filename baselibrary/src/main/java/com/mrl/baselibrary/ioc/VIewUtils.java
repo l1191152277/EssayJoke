@@ -42,24 +42,24 @@ public class ViewUtils {
      */
     private static void injectFiled(ViewFinder finder, Object object) {
         //1. 获取类里面所有的属性
-        Class<?> clazz=object.getClass();
+        Class<?> clazz = object.getClass();
         //获取所有属性  包括共有和私有
-        Field[] fields= clazz.getDeclaredFields();
+        Field[] fields = clazz.getDeclaredFields();
 
         //2. 获取viewById里面的value值
-        for(Field field:fields){
-            ViewById viewById=field.getAnnotation(ViewById.class);
-            if(viewById!=null){
+        for (Field field : fields) {
+            ViewById viewById = field.getAnnotation(ViewById.class);
+            if (viewById != null) {
                 //获取注解里面的ID值
-                int viewId= viewById.value();
+                int viewId = viewById.value();
                 //3. findViewById找到找到View
-                View view=finder.findViewById(viewId);
-                if(view!=null){
+                View view = finder.findViewById(viewId);
+                if (view != null) {
                     //能够注入所有注释
                     field.setAccessible(true);
                     //4. 动态的注入找到的View
                     try {
-                        field.set(object,view);
+                        field.set(object, view);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -74,22 +74,22 @@ public class ViewUtils {
      */
     private static void injectEvent(ViewFinder finder, Object object) {
         //1. 获取类里所有的方法
-        Class<?> clazz=object.getClass();
-        Method[] methods=clazz.getMethods();
+        Class<?> clazz = object.getClass();
+        Method[] methods = clazz.getMethods();
         //2. 获取OnClick里面的value值
-        for(Method method:methods){
-            OnClick onClick=method.getAnnotation(OnClick.class);
-            if(onClick!=null){
-               int[]viewIds= onClick.value();
-                for (int viewId:viewIds){
+        for (Method method : methods) {
+            OnClick onClick = method.getAnnotation(OnClick.class);
+            if (onClick != null) {
+                int[] viewIds = onClick.value();
+                for (int viewId : viewIds) {
                     //3. findViewById找到找到View
-                    View view= finder.findViewById(viewId);
+                    View view = finder.findViewById(viewId);
 
                     //扩展功能 检测网络
-                    Boolean isCheckNet=method.getAnnotation(CheckNet.class)!=null;
-                    if(view!=null){
+                    Boolean isCheckNet = method.getAnnotation(CheckNet.class) != null;
+                    if (view != null) {
                         //4. setOnClickListener
-                        view.setOnClickListener(new DeclaredOnClickListener(method,object,isCheckNet));
+                        view.setOnClickListener(new DeclaredOnClickListener(method, object, isCheckNet));
                     }
                 }
             }
@@ -97,29 +97,28 @@ public class ViewUtils {
     }
 
 
-
     /**
      * 事件的监听
      */
-    private static class DeclaredOnClickListener implements View.OnClickListener{
+    private static class DeclaredOnClickListener implements View.OnClickListener {
         private Method mMethod;
         private Object mObject;
         private Boolean mIsCheckNet;
 
         public DeclaredOnClickListener(Method method, Object object, Boolean isCheckNet) {
-            this.mMethod=method;
-            this.mObject=object;
-            this.mIsCheckNet=isCheckNet;
+            this.mMethod = method;
+            this.mObject = object;
+            this.mIsCheckNet = isCheckNet;
         }
 
 
         @Override
         public void onClick(View v) {
             //需不需要检测网络
-            if(mIsCheckNet){
+            if (mIsCheckNet) {
                 //需要
-                if(!isConnected(v.getContext())){
-                    Toast.makeText(v.getContext(),"您的网络不给力",Toast.LENGTH_LONG).show();
+                if (!isConnected(v.getContext())) {
+                    Toast.makeText(v.getContext(), "您的网络不给力", Toast.LENGTH_LONG).show();
                     return;
                 }
             }
@@ -127,11 +126,11 @@ public class ViewUtils {
             try {
                 mMethod.setAccessible(true);//能够注入所有注释 包括共有和私有
                 //5. 反射执行方法
-                mMethod.invoke(mObject,v);
+                mMethod.invoke(mObject, v);
             } catch (Exception e) {
                 e.printStackTrace();
                 try {
-                    mMethod.invoke(mObject,null);
+                    mMethod.invoke(mObject, null);
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
@@ -141,19 +140,15 @@ public class ViewUtils {
         /**
          * 判断网络是否连接
          */
-        public static boolean isConnected(Context context)
-        {
+        public static boolean isConnected(Context context) {
             ConnectivityManager connectivity = (ConnectivityManager) context
                     .getSystemService(Context.CONNECTIVITY_SERVICE);
 
-            if (null != connectivity)
-            {
+            if (null != connectivity) {
 
                 NetworkInfo info = connectivity.getActiveNetworkInfo();
-                if (null != info && info.isConnected())
-                {
-                    if (info.getState() == NetworkInfo.State.CONNECTED)
-                    {
+                if (null != info && info.isConnected()) {
+                    if (info.getState() == NetworkInfo.State.CONNECTED) {
                         return true;
                     }
                 }
