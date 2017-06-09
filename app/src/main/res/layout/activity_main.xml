@@ -8,8 +8,8 @@
     android:orientation="vertical">
 
     <Button
-        android:text="Dialog"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/button" />
+    android:text="万能dialog"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/button" />
 </LinearLayout>

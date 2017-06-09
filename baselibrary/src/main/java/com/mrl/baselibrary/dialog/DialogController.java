@@ -168,7 +168,6 @@ class DialogController {
             params.width = mWidth;
             params.height = mHeight;
             window.setAttributes(params);
-
         }
     }
 
