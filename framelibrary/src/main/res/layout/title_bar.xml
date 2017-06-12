@@ -2,16 +2,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:gravity="center_vertical"
-    android:layout_height="50dp">
+    android:layout_height="50dp"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true"
+    android:orientation="horizontal"
+    >
     <ImageView
+        android:id="@+id/navigation_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@android:d"
+        android:src="@android:drawable/ic_delete"
+        android:layout_marginLeft="10dp"
         />
     <TextView
+        android:id="@+id/navigation_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="标题"
+        android:gravity="center"
+        android:layout_weight="1"
         />
-
+    <TextView
+        android:id="@+id/navigation_righttext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="设置"
+        android:layout_marginRight="10dp"
+        />
 </LinearLayout>

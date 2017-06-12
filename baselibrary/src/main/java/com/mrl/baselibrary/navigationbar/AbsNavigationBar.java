@@ -1,5 +1,6 @@
 package com.mrl.baselibrary.navigationbar;
 
+import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -50,9 +51,22 @@ public abstract class AbsNavigationBar<P extends AbsNavigationBar.Builder.AbsNav
      */
     private void createAndBindView() {
         //创建view
+        if (mParams.mParent==null){
+            //获取acivity的根布局
+            ViewGroup activityRoot= (ViewGroup) ((Activity)(mParams.mContext))
+                    .findViewById(android.R.id.content);
+            mParams.mParent= (ViewGroup) activityRoot.getChildAt(0);
+        }
+
+        //处理activity源码
+        if (mParams.mParent==null){
+            return;
+        }
+
         mNavigationView= LayoutInflater.from(mParams.mContext).
               inflate(bindLayoutId(),mParams.mParent,false);
         //添加
+
         mParams.mParent.addView(mNavigationView,0);
         //绑定
         applyView();

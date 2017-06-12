@@ -1,20 +1,21 @@
 package com.hc.essay.joke;
 
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.framelibrary.BaseSkinActivity;
 import com.example.framelibrary.navigationBar.DefaultNavigationBar;
+import com.hc.essay.joke.selectimage.TestImageActivity;
 import com.mrl.baselibrary.ExceptionCrashHandler;
 import com.mrl.baselibrary.dialog.BaseDialog;
 import com.mrl.baselibrary.ioc.OnClick;
-import com.mrl.baselibrary.ioc.ViewById;
 
 import java.io.File;
 
+/**
+ *
+ */
 public class MainActivity extends BaseSkinActivity {
 
     @Override
@@ -25,9 +26,8 @@ public class MainActivity extends BaseSkinActivity {
     @Override
     protected void initTitle() {
         DefaultNavigationBar navigationBar= new DefaultNavigationBar.
-                Builder(this, (ViewGroup) findViewById(R.id.root_view))
+                Builder(this)
                 .setTitle("主页")
-                .setRightIcon(R.mipmap.ic_launcher)
                 .builder();
 
     }
@@ -37,7 +37,7 @@ public class MainActivity extends BaseSkinActivity {
 
     }
 
-    @OnClick(R.id.button)
+    @OnClick({R.id.button ,R.id.select_image})
     public void onClick(View view){
         switch (view.getId()){
             //Dialog使用示例
@@ -52,6 +52,9 @@ public class MainActivity extends BaseSkinActivity {
                     }
                 });
             break;
+            case R.id.select_image:
+                startActivity(TestImageActivity.class);
+                break;
         }
     }
 

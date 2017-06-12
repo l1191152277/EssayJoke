@@ -1,5 +1,6 @@
 package com.example.framelibrary.navigationBar;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,12 +31,7 @@ public class DefaultNavigationBar extends AbsNavigationBar <DefaultNavigationBar
         setText(R.id.navigation_righttext,getParams().mRightText);
         setIcon(R.id.navigation_righttext,getParams().mRightIcon);
         setOnClickListener(R.id.navigation_righttext, getParams().mRightOnClickListener);
-        setOnClickListener(R.id.navigation_back, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //getParams().mContext.
-            }
-        });
+        setOnClickListener(R.id.navigation_back, getParams().mLightOnClickListener);
     }
 
 
@@ -46,6 +42,11 @@ public class DefaultNavigationBar extends AbsNavigationBar <DefaultNavigationBar
         public Builder(Context context, ViewGroup parent) {
             super(context, parent);
             P = new DefaultNavigationParams(context, parent);
+        }
+
+        public Builder(Context context) {
+            super(context, null);
+            P = new DefaultNavigationParams(context, null);
         }
 
         @Override
@@ -77,12 +78,25 @@ public class DefaultNavigationBar extends AbsNavigationBar <DefaultNavigationBar
             return this;
         }
 
+        //设置左边点击事件
+        public DefaultNavigationBar.Builder setLeftClickListener(View.OnClickListener onClickListener){
+            P.mLightOnClickListener=onClickListener;
+            return this;
+        }
+
 
         public static class DefaultNavigationParams extends AbsNavigationParams {
             public String mTitle;
             public String mRightText;
             public int mRightIcon;
             public View.OnClickListener mRightOnClickListener;
+            public View.OnClickListener mLightOnClickListener=new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //关闭当前activity
+                    ((Activity)mContext).finish();
+                }
+            };
             public Context mContext;
             //所有的效果
             public DefaultNavigationParams(Context context, ViewGroup parent) {
