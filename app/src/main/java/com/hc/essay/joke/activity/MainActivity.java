@@ -1,4 +1,4 @@
-package com.hc.essay.joke;
+package com.hc.essay.joke.activity;
 
 import android.view.View;
 import android.widget.EditText;
@@ -6,6 +6,8 @@ import android.widget.Toast;
 
 import com.example.framelibrary.BaseSkinActivity;
 import com.example.framelibrary.navigationBar.DefaultNavigationBar;
+import com.hc.essay.joke.R;
+import com.hc.essay.joke.recyclerview.BaseUseRecyclerVIew;
 import com.hc.essay.joke.selectimage.TestImageActivity;
 import com.mrl.baselibrary.ExceptionCrashHandler;
 import com.mrl.baselibrary.dialog.BaseDialog;
@@ -14,7 +16,7 @@ import com.mrl.baselibrary.ioc.OnClick;
 import java.io.File;
 
 /**
- *
+ * 
  */
 public class MainActivity extends BaseSkinActivity {
 
@@ -37,7 +39,7 @@ public class MainActivity extends BaseSkinActivity {
 
     }
 
-    @OnClick({R.id.button ,R.id.select_image})
+    @OnClick({R.id.button ,R.id.select_image,R.id.use_recyclerview})
     public void onClick(View view){
         switch (view.getId()){
             //Dialog使用示例
@@ -54,6 +56,9 @@ public class MainActivity extends BaseSkinActivity {
             break;
             case R.id.select_image:
                 startActivity(TestImageActivity.class);
+                break;
+            case R.id.use_recyclerview:
+                startActivity(BaseUseRecyclerVIew.class);
                 break;
         }
     }

@@ -17,4 +17,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/select_image" />
+    <Button
+        android:text="recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/use_recyclerview" />
 </LinearLayout>

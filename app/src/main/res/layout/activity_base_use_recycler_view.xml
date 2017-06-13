@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_base_use_recycler_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#3bf2ef"
+    tools:context="com.hc.essay.joke.recyclerview.BaseUseRecyclerVIew">
+
+    <android.support.v7.widget.RecyclerView
+    android:id="@+id/base_use_recyclerview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+</android.support.v7.widget.RecyclerView>
+
+</LinearLayout>
