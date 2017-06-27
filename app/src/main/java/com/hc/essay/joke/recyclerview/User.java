@@ -7,4 +7,5 @@ package com.hc.essay.joke.recyclerview;
  */
 
 public class User {
+    public String name;
 }
