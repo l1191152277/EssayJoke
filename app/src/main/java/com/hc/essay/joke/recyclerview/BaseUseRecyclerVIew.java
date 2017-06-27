@@ -12,10 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.framelibrary.BaseSkinActivity;
 import com.example.framelibrary.navigationBar.DefaultNavigationBar;
 import com.hc.essay.joke.R;
+import com.mrl.baselibrary.common.RecyclerItemClickListener;
+import com.mrl.baselibrary.common.RecyclerItemLongClickListener;
 import com.mrl.baselibrary.ioc.ViewById;
 
 import java.util.ArrayList;
@@ -46,7 +49,7 @@ public class BaseUseRecyclerVIew extends BaseSkinActivity {
             public void onClick(View v) {
                 if (rightText.getText().equals("GridView")) {
                     rightText.setText("ListView");
-                    mRecyclerView.setLayoutManager(new GridLayoutManager(BaseUseRecyclerVIew.this, 4));
+                    mRecyclerView.setLayoutManager(new GridLayoutManager(BaseUseRecyclerVIew.this, 3));
                 } else {
                     rightText.setText("GridView");
                     mRecyclerView.setLayoutManager(new LinearLayoutManager(BaseUseRecyclerVIew.this));
@@ -73,12 +76,30 @@ public class BaseUseRecyclerVIew extends BaseSkinActivity {
         for (int i = 'A'; i < 'z'; i++) {
             mDatas.add("" + (char) i);
         }
-        RecyclertAdapter adapter = new RecyclertAdapter(this, mDatas);
+        TextCommonAdapter adapter = new TextCommonAdapter(this, mDatas);
+        adapter.setItemClickListener(new RecyclerItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Toast.makeText(mContext,"--"+mDatas.get(position),Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        adapter.setItemLongClickListener(new RecyclerItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(int position) {
+                Toast.makeText(mContext,"-长按-"+mDatas.get(position),Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
         // 2 添加适配器
         mRecyclerView.setAdapter(adapter);
         // 3 添加分割线
         mRecyclerView.addItemDecoration(new GridLayoutItemDecoration(this, R.drawable.item_driver_01));
     }
+
+
+
+
 
 
     /**
