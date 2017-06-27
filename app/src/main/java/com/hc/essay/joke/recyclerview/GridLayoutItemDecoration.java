@@ -22,12 +22,10 @@ public class GridLayoutItemDecoration extends RecyclerView.ItemDecoration {
         mDriver = ContextCompat.getDrawable(context, drawableResId);
     }
 
-
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         // 留出分割线位置 下边和右边
         int position = parent.getChildAdapterPosition(view);
-
         int bottom = mDriver.getIntrinsicHeight();
         int right = mDriver.getIntrinsicWidth();
 
@@ -42,13 +40,12 @@ public class GridLayoutItemDecoration extends RecyclerView.ItemDecoration {
 
         outRect.bottom = bottom;
         outRect.right = right;
-
-
     }
 
 
     /**
      * 判断是否是最后一列
+     *
      * @param view
      * @param parent
      * @return
@@ -66,6 +63,7 @@ public class GridLayoutItemDecoration extends RecyclerView.ItemDecoration {
 
     /**
      * 判断是否最后一行
+     *
      * @param view
      * @param parent
      * @return
@@ -77,16 +75,17 @@ public class GridLayoutItemDecoration extends RecyclerView.ItemDecoration {
         //条目数
         int childCount = parent.getAdapter().getItemCount();
         //列数
-        int spanCount=getSpanCount(parent);
+        int spanCount = getSpanCount(parent);
         //行数
-        int rowCount= childCount%spanCount==0 ?childCount/spanCount:
-                childCount/spanCount+1;
+        int rowCount = childCount % spanCount == 0 ? childCount / spanCount :
+                childCount / spanCount + 1;
         //当前位置+1 > （行数-1）* 列数
-        return (position+1)>(rowCount-1)*spanCount;
+        return (position + 1) > (rowCount - 1) * spanCount;
     }
 
     /**
      * 获取列数
+     *
      * @param parent
      * @return
      */
@@ -117,7 +116,6 @@ public class GridLayoutItemDecoration extends RecyclerView.ItemDecoration {
      */
     private void drawVertical(Canvas c, RecyclerView parent) {
         int childCount = parent.getChildCount();
-
         for (int i = 0; i < childCount; i++) {
             View childView = parent.getChildAt(i);
             RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) childView.getLayoutParams();
@@ -133,13 +131,12 @@ public class GridLayoutItemDecoration extends RecyclerView.ItemDecoration {
 
     /**
      * 绘制水平分割线
-     *
      * @param c
      * @param parent
      */
     private void drawHorizontal(Canvas c, RecyclerView parent) {
-        int childCount = parent.getChildCount();
 
+        int childCount = parent.getChildCount();
         for (int i = 0; i < childCount; i++) {
             View childView = parent.getChildAt(i);
             RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) childView.getLayoutParams();

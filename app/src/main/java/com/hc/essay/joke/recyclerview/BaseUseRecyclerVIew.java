@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.framelibrary.BaseSkinActivity;
 import com.example.framelibrary.navigationBar.DefaultNavigationBar;
 import com.hc.essay.joke.R;
+import com.mrl.baselibrary.common.MulitiTypeSupport;
 import com.mrl.baselibrary.common.RecyclerItemClickListener;
 import com.mrl.baselibrary.common.RecyclerItemLongClickListener;
 import com.mrl.baselibrary.ioc.ViewById;
@@ -60,11 +61,9 @@ public class BaseUseRecyclerVIew extends BaseSkinActivity {
 
     @Override
     protected void initView() {
-
         // LinearLayoutManager -> ListView风格
         // GridLayoutManager -> GridView风格
         // StaggeredGridLayoutManager -> 瀑布流风格
-
         // 1 设置recyclerView的布局管理
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(linearLayoutManager);
@@ -76,18 +75,27 @@ public class BaseUseRecyclerVIew extends BaseSkinActivity {
         for (int i = 'A'; i < 'z'; i++) {
             mDatas.add("" + (char) i);
         }
-        TextCommonAdapter adapter = new TextCommonAdapter(this, mDatas);
+        TextCommonAdapter adapter = new TextCommonAdapter(this, mDatas, new MulitiTypeSupport<String>() {
+
+            @Override
+            public int getLayoutId(String s, int position) {
+                if (position%2==0){
+                    return R.layout.recyclerview_item;
+                }
+                return R.layout.recyclerview_item_right;
+            }
+        });
         adapter.setItemClickListener(new RecyclerItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Toast.makeText(mContext,"--"+mDatas.get(position),Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "-点击-" + mDatas.get(position), Toast.LENGTH_SHORT).show();
             }
         });
 
         adapter.setItemLongClickListener(new RecyclerItemLongClickListener() {
             @Override
             public boolean onItemLongClick(int position) {
-                Toast.makeText(mContext,"-长按-"+mDatas.get(position),Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "-长按-" + mDatas.get(position), Toast.LENGTH_SHORT).show();
                 return true;
             }
         });
@@ -96,10 +104,6 @@ public class BaseUseRecyclerVIew extends BaseSkinActivity {
         // 3 添加分割线
         mRecyclerView.addItemDecoration(new GridLayoutItemDecoration(this, R.drawable.item_driver_01));
     }
-
-
-
-
 
 
     /**
