@@ -15,9 +15,9 @@ import java.util.List;
  */
 
 public abstract class RecyclerCommonAdapter<Data> extends RecyclerView.Adapter<RecyclerViewHolder<Data>> {
-    private int mLayoutId; //布局id
-    private List<Data> mData; //数据
-    private Context mContext; //上下文
+    protected int mLayoutId; //布局id
+    protected List<Data> mData; //数据
+    protected Context mContext; //上下文
     private LayoutInflater mInflater;
     private RecyclerItemClickListener itemClickListener;
     private RecyclerItemLongClickListener itemLongClickListener;

@@ -1,12 +1,16 @@
 package com.hc.essay.joke;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.os.Environment;
 import android.widget.Toast;
 
 import com.alipay.euler.andfix.patch.PatchManager;
+import com.hc.essay.joke.infraedcode.MyActivityManager;
 import com.mrl.baselibrary.ExceptionCrashHandler;
+import com.mrl.baselibrary.base.BaseActivity;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,6 +23,7 @@ import java.io.IOException;
 public class MyApplication extends Application{
     public static  PatchManager mPatchManager;
     private static final String TAG="MyApplication";
+    BaseActivity currentActivity;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -47,5 +52,42 @@ public class MyApplication extends Application{
             Toast.makeText(this,"修复失败",Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
+
+        registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
+            @Override
+            public void onActivityCreated(Activity activity, Bundle bundle) {
+
+            }
+
+            @Override
+            public void onActivityStarted(Activity activity) {
+
+            }
+
+            @Override
+            public void onActivityResumed(Activity activity) {
+                MyActivityManager.getInstance().setCurrentActivity(activity);
+            }
+
+            @Override
+            public void onActivityPaused(Activity activity) {
+
+            }
+
+            @Override
+            public void onActivityStopped(Activity activity) {
+
+            }
+
+            @Override
+            public void onActivitySaveInstanceState(Activity activity, Bundle bundle) {
+
+            }
+
+            @Override
+            public void onActivityDestroyed(Activity activity) {
+
+            }
+        });
     }
 }

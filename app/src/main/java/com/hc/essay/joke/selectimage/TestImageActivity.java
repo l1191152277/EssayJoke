@@ -40,6 +40,8 @@ public class TestImageActivity extends BaseSkinActivity {
         intent.putExtra(SelectImageActivity.EXTRA_SELECT_MODE,SelectImageActivity.MODE_MULTI);
         intent.putExtra(SelectImageActivity.EXTRA_SHOW_CAMERA,true);
         intent.putExtra(SelectImageActivity.EXTRA_DEFAULT_SELECTED_LIST,mImageList);
-        startActivity(intent);
+        startActivityForResult(intent,1);
     }
+
+
 }

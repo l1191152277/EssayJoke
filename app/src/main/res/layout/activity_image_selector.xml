@@ -14,6 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#ff261f1f"
+        android:layout_marginBottom="@dimen/title_bar_height"
         />
 
     <RelativeLayout

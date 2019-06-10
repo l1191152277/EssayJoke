@@ -8,11 +8,11 @@
     android:background="#3bf2ef"
     tools:context="com.hc.essay.joke.recyclerview.BaseUseRecyclerVIew">
 
-    <android.support.v7.widget.RecyclerView
+    <com.mrl.baselibrary.common.warp.WrapRecyclerView
     android:id="@+id/base_use_recyclerview"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</android.support.v7.widget.RecyclerView>
+</com.mrl.baselibrary.common.warp.WrapRecyclerView>
 
 </LinearLayout>

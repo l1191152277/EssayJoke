@@ -24,6 +24,7 @@ public class RecyclerViewHolder<Data> extends RecyclerView.ViewHolder{
 
     }
 
+
     /**
      * 通过viewid 获取控件
      *
@@ -102,6 +103,24 @@ public class RecyclerViewHolder<Data> extends RecyclerView.ViewHolder{
         }
 
         public abstract void load(ImageView view, String mImgPath);
+    }
+
+    /**
+     * 设置点击事件
+     * @param onClickListener
+     */
+    public void setItemOnClickListener(View.OnClickListener onClickListener){
+        itemView.setOnClickListener(onClickListener);
+    }
+
+    /**
+     * 设置隐藏 显示
+     * @param viewId
+     * @param visibility
+     */
+    public void setVisibility(int viewId,int visibility){
+        View view=getView(viewId);
+        view.setVisibility(visibility);
     }
 
 }

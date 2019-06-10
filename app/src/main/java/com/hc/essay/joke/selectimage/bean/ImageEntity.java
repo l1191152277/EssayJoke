@@ -11,6 +11,7 @@ public class ImageEntity {
     public String path;
     public String name;
     public long time;
+    public boolean isSelect=false;
 
     public ImageEntity(String path, String name, long time) {
         this.path = path;

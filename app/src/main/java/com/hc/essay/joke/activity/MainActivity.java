@@ -7,7 +7,9 @@ import android.widget.Toast;
 import com.example.framelibrary.BaseSkinActivity;
 import com.example.framelibrary.navigationBar.DefaultNavigationBar;
 import com.hc.essay.joke.R;
+import com.hc.essay.joke.infraedcode.InfraredCodeActivity;
 import com.hc.essay.joke.recyclerview.BaseUseRecyclerVIew;
+import com.hc.essay.joke.recyclerview.BaseUserRecyclerRefreshActivity;
 import com.hc.essay.joke.selectimage.TestImageActivity;
 import com.mrl.baselibrary.ExceptionCrashHandler;
 import com.mrl.baselibrary.dialog.BaseDialog;
@@ -16,9 +18,11 @@ import com.mrl.baselibrary.ioc.OnClick;
 import java.io.File;
 
 /**
- * 
+ *
+ * 主页
  */
 public class MainActivity extends BaseSkinActivity {
+
 
     @Override
     protected void setContentView() {
@@ -39,7 +43,7 @@ public class MainActivity extends BaseSkinActivity {
 
     }
 
-    @OnClick({R.id.button ,R.id.select_image,R.id.use_recyclerview})
+    @OnClick({R.id.button,R.id.select_image,R.id.use_recyclerview,R.id.recycler_refresh,R.id.infrared_code})
     public void onClick(View view){
         switch (view.getId()){
             //Dialog使用示例
@@ -59,6 +63,12 @@ public class MainActivity extends BaseSkinActivity {
                 break;
             case R.id.use_recyclerview:
                 startActivity(BaseUseRecyclerVIew.class);
+                break;
+            case R.id.recycler_refresh:
+                startActivity(BaseUserRecyclerRefreshActivity.class);
+                break;
+            case R.id.infrared_code:
+                startActivity(InfraredCodeActivity.class);
                 break;
         }
     }

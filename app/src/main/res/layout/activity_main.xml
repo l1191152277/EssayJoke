@@ -7,19 +7,65 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <Button
-    android:text="万能dialog"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/button" />
-    <Button
-        android:text="图片选择"
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/select_image" />
+        android:text="万能dialog" />
+
     <Button
-        android:text="recyclerview"
+        android:id="@+id/select_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/use_recyclerview" />
+        android:text="图片选择" />
+
+    <Button
+        android:id="@+id/use_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="recyclerview" />
+
+    <Button
+        android:id="@+id/recycler_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="recyclerrefresh" />
+
+
+    <Button
+        android:id="@+id/infrared_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="infrared_code" />
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/radiobutton_selector"
+            android:textColor="@drawable/radiobutton_color_selector"
+            android:text="男"
+            android:button="@null"
+            />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/radiobutton_selector"
+            android:textColor="@drawable/radiobutton_color_selector"
+            android:text="女"
+            android:button="@null"
+            />
+    </RadioGroup>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_launcher"
+        android:scaleType="fitXY"
+        />
 </LinearLayout>

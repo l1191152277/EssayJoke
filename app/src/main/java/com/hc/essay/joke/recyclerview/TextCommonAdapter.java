@@ -14,6 +14,10 @@ import java.util.List;
  */
 public class TextCommonAdapter extends RecyclerCommonAdapter<String> {
 
+    public TextCommonAdapter(Context context, List<String> data) {
+        super(context, data);
+    }
+
     public TextCommonAdapter(Context context, List<String> data, MulitiTypeSupport<String> mulitiTypeSupport) {
         super(context, data,mulitiTypeSupport);
     }
